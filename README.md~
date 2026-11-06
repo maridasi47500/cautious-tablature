@@ -1,0 +1,20 @@
+# How to specify tablature details for one note? Eg, open string vs 4th finger on violin
+
+- I have been using Lilypond to mark up violin music for a beginner in order to show good fingerings automatically, and it's really astonishing what it can do.
+
+- Notes can be played on the violin with alternate fingerings, and what's preferred may depend on the full context. I haven't found a good way to switch between alternatives.
+
+- Most commonly, a note may be played either with an open string or with the fourth finger on a lower string. In this case, I can achieve a 4th finger tablature by temporarily changing the stringTunings to move the relevant string's pitch up. This is extremely ugly and cumbersome and wouldn't work if the note is supposed to be played double-stop with a higher string.
+
+- Is there a better way to go about this?
+-  First up, you are using Lilypond version 2.16? Can you not upgrade to anything newer? There have been vast improvements since 2.16.
+
+- can you not just append the string number to the end of whatever note you want? For example, where d2 is a half note on the open D string (I think?), d2\4 tells Lilypond to put the note on the fourth string (G string) instead.
+
+- You can also redefine the minimum "fret" position to be used if you need to notate a larger section:
+
+\set TabStaff.minimumFret = #5
+\set TabStaff.restrainOpenStrings = ##t 
+
+- This will make sure that each tablature pitch is written at least on the 5th "fret" so that d2, from above, will be on the G string without the need to explicitly state the string number to use. Lilypond will still default to open strings unless the second line is used as well. 
+- the backslash notation to indicate which string to use is exactly what I want!
