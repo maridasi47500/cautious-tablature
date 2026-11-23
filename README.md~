@@ -1,4 +1,5 @@
 # How to specify tablature details for one note? Eg, open string vs 4th finger on violin
+![violin tab](violin1)
 
 - I have been using Lilypond to mark up violin music for a beginner in order to show good fingerings automatically, and it's really astonishing what it can do.
 
@@ -18,3 +19,4 @@
 
 - This will make sure that each tablature pitch is written at least on the 5th "fret" so that d2, from above, will be on the G string without the need to explicitly state the string number to use. Lilypond will still default to open strings unless the second line is used as well. 
 - the backslash notation to indicate which string to use is exactly what I want!
+"# cautious-tablature" 

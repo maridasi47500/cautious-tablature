@@ -1,0 +1,69 @@
+from flask import Flask, render_template, request, redirect, session
+import time
+
+from yourappdb import query_db, get_db
+from flask import g
+import random
+import string
+def random_string(length):
+    characters = string.ascii_letters + string.digits  # Uppercase, lowercase, digits
+    return ''.join(random.choice(characters) for _ in range(length))
+import subprocess
+
+
+app = Flask(__name__)
+app.secret_key="hahah"
+def init_db():
+    with app.app_context():
+        db = get_db()
+        with app.open_resource('schema.sql', mode='r') as f:
+            db.cursor().executescript(f.read())
+        db.commit()
+init_db()
+
+@app.teardown_appcontext
+def close_connection(exception):
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
+
+@app.route("/", methods=["GET","POST"])
+def add_one_user():
+    allcountries = query_db("select * from tablature")
+    piecename=""
+    if request.method == 'POST':
+
+            the_username = "anonyme"
+            one_user = query_db("insert into tablature (name,chord, piece) values (:name,:chord, :piece)",request.form)
+            piecename=request.form["piece"]
+            user = query_db('select * from tablature order by name')
+            return render_template("tabform.html", piecename=piecename, alltabs=user, the_title="add new tablature",message="ma tablature")
+    user = query_db('select * from tablature order by name')
+    one_user = query_db("select * from tablature limit 1", one=True)
+
+    return render_template("tabform.html", alltabs=user, piecename=piecename, the_title="add new tablature",message="ma tablature")
+@app.route("/toutvoir", methods=["GET","POST"])
+def toutvoir():
+    user = query_db('select * from tablature order by name')
+    melody=""
+    x=open('judasmodel.ly', 'r').read()
+    for y in user:
+        melody+=" <"+y["chord"]+">^\""+y["name"]+"\""
+    print(melody)
+    x=x.replace("ECRIRELAMELODIEICI", melody)
+    myname=random_string(10)
+    with open("C:\\Users\\cleop\\Documents\\violin-tablature\\static\\scores\\"+myname+".ly", "w") as f: 
+        f.write(x)
+    print("(cd C:\\Users\\cleop\\Documents\\violin-tablature\\static\\scores && lilypond -dclip-systems --png C:\\Users\\cleop\\Documents\\violin-tablature\\static\\scores\\"+myname+".ly)") #run check_output Popen
+    z=subprocess.Popen("(cd C:\\Users\\cleop\\Documents\\violin-tablature\\static\\scores && lilypond -dclip-systems --png C:\\Users\\cleop\\Documents\\violin-tablature\\static\\scores\\"+myname+".ly)") #run check_output Popen
+
+    return render_template("tabmyform.html", myname=myname, alltabs=user,  the_title="add new tablature",message="ma tablature")
+
+
+ 
+
+if __name__ == "__main__":
+    app.run()
+    app.debug = True
+
+

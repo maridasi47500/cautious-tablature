@@ -1,4 +1,5 @@
 # How to specify tablature details for one note? Eg, open string vs 4th finger on violin
+![violin tab](violin1.jpg)
 
 - I have been using Lilypond to mark up violin music for a beginner in order to show good fingerings automatically, and it's really astonishing what it can do.
 

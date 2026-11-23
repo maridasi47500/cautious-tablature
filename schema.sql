@@ -1,0 +1,6 @@
+CREATE TABLE  IF NOT EXISTS tablature (
+	id INTEGER PRIMARY KEY,
+	name TEXT NOT NULL,
+	chord TEXT NOT NULL,
+piece TEXT NOT NULL
+);

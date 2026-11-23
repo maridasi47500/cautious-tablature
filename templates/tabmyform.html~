@@ -1,0 +1,28 @@
+{% extends 'base.html' %}{% block content %}
+
+<form action="/" method="POST">
+
+<div class="field"><label>name exemple A, B, C, D , E F, cisdim, Adim, fisdim, disdim, Am, AM, besM, besm, A7, etc. Em7b5 etc.</label><input name="name"/></div>
+<div class="field"><label>chord exemple a f' c'' a'', exemple d' f' a' f''</label><input name="chord"/></div>
+<div class="field"><label>nom d'une piece exemple gufa sonata III fuga sonata I fuga sonata II etc.</label><input name="piece" value="{{piecename}}"/></div>
+
+
+<div class="actions"><input type="submit"/></div></form>
+
+<img id="favpic" src="/static/scores/{{myname}}.png"/>
+{% for x in alltabs %}<p>nom : {{x["name"] }}, accord :{{x["chord"]}} nom de la piece: {{x["piece"]}}</p>{% endfor %}{% endblock %}{% block liens %}<a href="/">bienvenue</a>
+
+<a href="/"> add one violin tab</a>
+<a href="/toutvoir"> tout voir</a>
+
+
+<script>
+	window.onload=function(){
+		setTimeout(() => {
+    console.log("3 seconds have passed!");
+			favpic.src=favpic.src+'?time='+ new Date().getTime();
+}, 10000);
+	}
+</script>
+{% endblock %}
+
