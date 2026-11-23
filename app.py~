@@ -55,7 +55,7 @@ def toutvoir():
     with open("C:\\Users\\cleop\\Documents\\violin-tablature\\static\\scores\\"+myname+".ly", "w") as f: 
         f.write(x)
     print("(cd C:\\Users\\cleop\\Documents\\violin-tablature\\static\\scores && lilypond -dclip-systems --png C:\\Users\\cleop\\Documents\\violin-tablature\\static\\scores\\"+myname+".ly)") #run check_output Popen
-    z=subprocess.Popen("(cd C:\\Users\\cleop\\Documents\\violin-tablature\\static\\scores && lilypond -dclip-systems --png C:\\Users\\cleop\\Documents\\violin-tablature\\static\\scores\\"+myname+".ly)") #run check_output Popen
+    z=subprocess.Popen("(cd C:\\Users\\cleop\\Documents\\violin-tablature\\static\\scores && lilypond -dclip-systems --png C:\\Users\\cleop\\Documents\\violin-tablature\\static\\scores\\"+myname+".ly)", shell=True) #run check_output Popen
 
     return render_template("tabmyform.html", myname=myname, alltabs=user,  the_title="add new tablature",message="ma tablature")
 
