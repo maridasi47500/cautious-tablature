@@ -4,6 +4,7 @@ import time
 from yourappdb import query_db, get_db
 from flask import g
 import random
+import os
 import string
 def random_string(length):
     characters = string.ascii_letters + string.digits  # Uppercase, lowercase, digits
@@ -52,10 +53,10 @@ def toutvoir():
     print(melody)
     x=x.replace("ECRIRELAMELODIEICI", melody)
     myname=random_string(10)
-    with open("C:\\Users\\cleop\\Documents\\violin-tablature\\static\\scores\\"+myname+".ly", "w") as f: 
+    with open("C:\\Users\\"+os.getlogin()+"\\Documents\\violin-tablature\\static\\scores\\"+myname+".ly", "w") as f: 
         f.write(x)
-    print("(cd C:\\Users\\cleop\\Documents\\violin-tablature\\static\\scores && lilypond -dclip-systems --png C:\\Users\\cleop\\Documents\\violin-tablature\\static\\scores\\"+myname+".ly)") #run check_output Popen
-    z=subprocess.Popen("(cd C:\\Users\\cleop\\Documents\\violin-tablature\\static\\scores && lilypond -dclip-systems --png C:\\Users\\cleop\\Documents\\violin-tablature\\static\\scores\\"+myname+".ly)", shell=True) #run check_output Popen
+    print("(cd C:\\Users\\"+os.getlogin()+"\\Documents\\violin-tablature\\static\\scores && lilypond -dclip-systems --png C:\\Users\\"+os.getlogin()+"\\Documents\\violin-tablature\\static\\scores\\"+myname+".ly)") #run check_output Popen
+    z=subprocess.Popen("(cd C:\\Users\\"+os.getlogin()+"\\Documents\\violin-tablature\\static\\scores && lilypond -dclip-systems --png C:\\Users\\"+os.getlogin()+"\\Documents\\violin-tablature\\static\\scores\\"+myname+".ly)", shell=True) #run check_output Popen
 
     return render_template("tabmyform.html", myname=myname, alltabs=user,  the_title="add new tablature",message="ma tablature")
 

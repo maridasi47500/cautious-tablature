@@ -5,5 +5,11 @@
 <div class="field"><label>nom d'une piece exemple gufa sonata III fuga sonata I fuga sonata II etc.</label><input name="piece" value="{{piecename}}"/></div>
 
 
-<div class="actions"><input type="submit"/></div></form>{% for x in alltabs %}<p>nom : {{x["name"] }}, accord :{{x["chord"]}} nom de la piece: {{x["piece"]}}</p>{% endfor %}{% endblock %}{% block liens %}<a href="/">bienvenue</a><a href="/"> add one violin tab</a>{% endblock %}
+<div class="actions"><input type="submit"/></div></form>{% for x in alltabs %}<p>nom : {{x["name"] }}, accord :{{x["chord"]}} nom de la piece: {{x["piece"]}}</p>{% endfor %}{% endblock %}{% block liens %}<a href="/">bienvenue</a>
+
+<a href="/"> add one violin tab</a>
+<a href="/toutvoir"> tout voir</a>
+
+
+{% endblock %}
 

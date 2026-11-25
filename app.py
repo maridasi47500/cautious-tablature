@@ -37,15 +37,15 @@ def add_one_user():
             the_username = "anonyme"
             one_user = query_db("insert into tablature (name,chord, piece) values (:name,:chord, :piece)",request.form)
             piecename=request.form["piece"]
-            user = query_db('select * from tablature order by name')
+            user = query_db('select * from tablature order by lower(name)')
             return render_template("tabform.html", piecename=piecename, alltabs=user, the_title="add new tablature",message="ma tablature")
-    user = query_db('select * from tablature order by name')
+    user = query_db('select * from tablature order by lower(name)')
     one_user = query_db("select * from tablature limit 1", one=True)
 
     return render_template("tabform.html", alltabs=user, piecename=piecename, the_title="add new tablature",message="ma tablature")
 @app.route("/toutvoir", methods=["GET","POST"])
 def toutvoir():
-    user = query_db('select * from tablature order by name')
+    user = query_db('select * from tablature order by lower(name)')
     melody=""
     x=open('judasmodel.ly', 'r').read()
     for y in user:
